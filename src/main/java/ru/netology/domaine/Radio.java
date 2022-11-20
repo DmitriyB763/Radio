@@ -1,81 +1,133 @@
 package ru.netology.domaine;
 
 public class Radio {
-    int currentStantion;
+    private int currentStantion;
+    private int numbersOfSatntion = 10;
+    private int maxStantion = numbersOfSatntion -1;
+    private int minStantion = 0;
+
+
+
     private int currentVolume;
-/*можно улучшить присвоив значение станций и громкости (мин и макс ) геттерам и сеттарам
+    private int maxVolume = 100;
+    private int minVolume = 0;
 
-    public int getMaxVolume() {   // получить максимальную станцию
-        return maxVolume;
+
+
+    public Radio() {
     }
-    public void setMaxVolume(int maxVolume) {  // установка макс. допустимой станции
-        this.maxVolume = 10;
-    }*/
+
+    public Radio(int numbersOfSatntion) {
+        this.numbersOfSatntion = numbersOfSatntion;
+    }
+    public Radio(int currentVolume, int maxVolume, int minVolume) {
+        this.currentVolume = currentVolume;
+        this.maxVolume = maxVolume;
+        this.minVolume = minVolume;
+    }
 
 
+    //Количество станций
+    public int getNumberOfStation() {
+        return numbersOfSatntion;
+    }
 
-    public int getCurrentStantion() {  //текущая станция
+    public void setNumberOfStations(int numbersOfStation) {
+        this.numbersOfSatntion = numbersOfStation;
+    }
+//Установка станций
+    public int getCurrentStantion() {  // получить текщую станцию
         return currentStantion;
     }
 
+    public void setCurrentStantion(int currentStantion) {  // установить текщую станцию
+        if (currentStantion > maxStantion) {
+            return;
+        }
+        if (currentStantion < minStantion) {
+            return;
+        }
+        this.currentStantion = currentStantion;
+    }
+
+    public int getMaxStantion() {  //получить максимальную станцию
+        return maxStantion;
+    }
+
+    public void setMaxStantion(int maxStantion) { //установить максимальную станцию
+        this.maxStantion = maxStantion;
+    }
+
+    public int getMinStantion() {  // получить минимальную станцию
+        return minStantion;
+    }
+
+    public void setMinStantion(int minStantion) { // установить мин. станцию
+        this.minStantion = minStantion;
+    }
+
     public void setNextStantion() {  //следующая станция
-        if (currentStantion < 9) {
+        if (currentStantion < maxStantion) {
             currentStantion++;
         } else {
-            currentStantion = 0;
+            currentStantion = minStantion;
         }
     }
 
     public void setPrevStantion() {   //предыдущая станция
-        if (currentStantion == 0) {
-            currentStantion = 9;
+        if (currentStantion == minStantion) {
+            currentStantion = maxStantion;
         } else {
             currentStantion--;
         }
     }
 
-    public void setStantion(int currentStantion) {      //установка конуретной станции из допустимых
-        if (currentStantion > 9) {
-            return;
-        }
-        if (currentStantion < 0) {
-            return;
-        }
 
-        this.currentStantion = currentStantion;
-
+    //громкость
+    public int getCurrentVolume() { // получить текущую громкость
+        return currentVolume;
     }
 
-    //громкость звука
-
-
-    public void setCurrentVolume(int currentVolume) {  //установить громкость
-        if (10 < currentVolume) {
+    public void setCurrentVolume(int currentVolume) { // установить текущую громкость
+        if (minVolume > currentVolume) {
             return;
         }
-        if (0 > currentVolume) {
+        if (maxVolume < currentVolume) {
             return;
         }
         this.currentVolume = currentVolume;
     }
 
-    public int getCurrentVolume() {  //текущая громкость
-        return currentVolume;
+    public int getMaxVolume() { //получить максимальную громкость
+        return maxVolume;
+    }
+
+    public void setMaxVolume(int maxVolume) { // установить максимальную громкость
+        this.maxVolume = maxVolume;
+    }
+
+    public int getMinVolume() { // получить минимальную  громкость
+        return minVolume;
+    }
+
+    public void setMinVolume(int minVolume) { // установить минимальную  громкость
+        this.minVolume = minVolume;
     }
 
     public void setNextVolume() {   //увеличение громкости
-        if (currentVolume < 10) {
-            this.currentVolume++;
+        if (currentVolume == maxVolume) {
+            return;
         }
-        return;
+        this.currentVolume++;
 
     }
 
     public void setLowVolume() {   //уменьшение гроскости
-        if (currentVolume > 0) {
-            this.currentVolume--;
+        if (currentVolume == minVolume) {
+            return;
         }
+        this.currentVolume--;
 
     }
-
 }
+
